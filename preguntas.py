@@ -21,7 +21,7 @@ def pregunta_01():
     214
 
     """
-    csvfile = open("/content/drive/MyDrive/Asignaturas/2023-1/Fundamentos_Analítica/data.csv", "r")
+    csvfile = open("data.csv", "r")
     data = []
     for row in csvfile:
         data.append(int(row[2]))
