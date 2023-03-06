@@ -21,8 +21,14 @@ def pregunta_01():
     214
 
     """
-    return
-
+    csvfile = open("/content/drive/MyDrive/Asignaturas/2023-1/Fundamentos_Analítica/data.csv", "r")
+    data = []
+    for row in csvfile:
+        data.append(int(row[2]))
+    sum=0
+    for i in data:
+        sum+=i    
+    return sum
 
 def pregunta_02():
     """
