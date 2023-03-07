@@ -45,8 +45,17 @@ def pregunta_02():
     ]
 
     """
-    return
-
+    from collections import Counter
+    csv = open("/content/drive/MyDrive/Asignaturas/2023-1/Fundamentos_Analítica/data.csv", "r")
+    letras=[]
+    for i in csv:
+      letras.append(i[0])
+    letras_u=list(set(letras))
+    letras_u.sort()
+    T=[]
+    for j in letras_u:
+      T.append((j,letras.count(j)))
+    return T
 
 def pregunta_03():
     """
