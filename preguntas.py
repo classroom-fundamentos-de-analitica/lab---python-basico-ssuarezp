@@ -11,7 +11,16 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+import csv
 
+with open('data.csv','r',encoding='UTF-8') as data:
+    entrada=csv.reader(data,delimiter=' ')
+    lista=list(entrada)
+
+listadef=[]
+for linea in lista:
+    x=linea[0].split('\t')
+    listadef.append(x)
 
 def pregunta_01():
     """
@@ -72,8 +81,16 @@ def pregunta_03():
     ]
 
     """
-    return
+    lista1 = [z[0] for z in listadef[0:]]
+    lista1 = sorted(list(set(lista1)))
 
+    listasum= []
+    for i in lista1:
+        w = [int(z[1]) for z in listadef[0:] if z[0] == i]
+        listasum.append(sum(w))
+
+    listasum = list(zip(lista1,listasum))
+    return listasum
 
 def pregunta_04():
     """
@@ -97,9 +114,19 @@ def pregunta_04():
     ]
 
     """
-    return
+    lista1 = [z[2].split("-") for z in listadef[0:]]
+    b = sorted(list(set([z[1] for z in lista1])))
 
+    cuenta = []
 
+    for i in b:
+        w = ([z for z in lista1 if z[1] == i])
+        cuenta.append(len(w))
+
+    cuenta = list(zip(b,cuenta))
+
+    return cuenta
+   
 def pregunta_05():
     """
     Retorne una lista de tuplas con el valor maximo y minimo de la columna 2 por cada
@@ -115,10 +142,20 @@ def pregunta_05():
     ]
 
     """
-    return
+    lista1 = [z[0] for z in listadef[0:]]
+    lista1 = sorted(list(set(lista1)))
 
+    maxi = []
+    mini = []
+    for i in lista1:
+        w = [int(z[1]) for z in listadef[0:] if z[0] == i]
+        maxi.append(max(w))
+        mini.append(min(w))
 
-def pregunta_06():
+    valor = list(zip(lista1,maxi,mini))
+    return valor
+
+  def pregunta_06():
     """
     La columna 5 codifica un diccionario donde cada cadena de tres letras corresponde a
     una clave y el valor despues del caracter `:` corresponde al valor asociado a la
@@ -140,8 +177,21 @@ def pregunta_06():
     ]
 
     """
-    return
+    dic1={}
+    for row in listadef:
+        for i in row[4].split(","):
+            currentKeyValue = dic1.get(str(i[:3]),-1)
+            currentValue = int(i[4:])
+            if(currentKeyValue == -1):
+                dic1[str(i[:3])] = (currentValue,currentValue)
+            if(currentKeyValue !=-1):
+                dic1[str(i[:3])] = (min(currentKeyValue[0],currentValue),max(currentKeyValue[1],currentValue))
 
+    sort = list(sorted(dic1.items()))
+    final = []
+    for i in sort:
+        final.append((i[0],i[1][0],i[1][1]))
+    return final
 
 def pregunta_07():
     """
@@ -164,9 +214,16 @@ def pregunta_07():
     ]
 
     """
-    return
-
-
+    dic1 = {}
+    for i in listadef:
+        index = int(i[1])
+        current = dic1.get(index,-1)
+        if(current == -1):
+            dic1[index] = [i[0]]
+        else:
+            dic1[index].append(i[0])
+    return list(sorted(dic1.items()))
+    
 def pregunta_08():
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla contiene  el valor
@@ -189,8 +246,18 @@ def pregunta_08():
     ]
 
     """
-    return
-
+    dic1 = {}
+    for i in listadef:
+        current = dic1.get(i[1],-1)
+        if(current == -1):
+            dic1[i[1]] = [i[0]]
+        else:
+            dic1[i[1]].append(i[0])
+    sort = list(sorted(dic1.items()))
+    final = []
+    for i in sort:
+        final.append((int(i[0]),list(sorted(set(i[1])))))
+    return final
 
 def pregunta_09():
     """
@@ -212,7 +279,11 @@ def pregunta_09():
     }
 
     """
-    return
+    dic1={}
+    for i in listadef:
+        for i in i[4].split(","):
+            dic1[str(i[:3])] = dic1.get(str(i[:3]),0) + 1
+    return dict(sorted(dic1.items()))
 
 
 def pregunta_10():
@@ -233,7 +304,10 @@ def pregunta_10():
 
 
     """
-    return
+    lista1 = []
+    for i in listadef:
+        lista1.append((i[0],len(i[3].split(",")),len(i[4].split(","))))
+    return lista1
 
 
 def pregunta_11():
@@ -254,7 +328,11 @@ def pregunta_11():
 
 
     """
-    return
+    dic1={}
+    for row in listadef:
+        for i in row[3].split(","):
+            dic1[str(i)] = dic1.get(str(i),0) + int(row[1])
+    return dict(sorted(dic1.items()))
 
 
 def pregunta_12():
@@ -272,4 +350,8 @@ def pregunta_12():
     }
 
     """
-    return
+    dic1={}
+    for row in listadef:
+        for i in row[4].split(","):
+            dic1[row[0]] = dic1.get(row[0],0) + int(i[4:])
+    return dict(sorted(dic1.items()))
