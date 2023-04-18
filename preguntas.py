@@ -30,14 +30,11 @@ def pregunta_01():
     214
 
     """
-    csvfile = open("data.csv", "r")
-    data = []
-    for row in csvfile:
-        data.append(int(row[2]))
-    sum=0
-    for i in data:
-        sum+=i    
-    return sum
+    suma=0
+    for i in listadef:
+        suma=suma+int(i[1])
+
+    return suma
 
 def pregunta_02():
     """
@@ -54,17 +51,15 @@ def pregunta_02():
     ]
 
     """
-    from collections import Counter
-    csv = open("/content/drive/MyDrive/Asignaturas/2023-1/Fundamentos_Analítica/data.csv", "r")
-    letras=[]
-    for i in csv:
-      letras.append(i[0])
-    letras_u=list(set(letras))
-    letras_u.sort()
-    T=[]
-    for j in letras_u:
-      T.append((j,letras.count(j)))
-    return T
+    listaaux=[]
+    for i in listadef:
+        listaaux.append(i[0])
+    listap2=[]
+    listap2.append(("A",listaaux.count("A")))
+    listap2.append(("B",listaaux.count("B")))
+    listap2.append(("C",listaaux.count("C")))
+    listap2.append(("D",listaaux.count("D")))
+    listap2.append(("E",listaaux.count("E")))
 
 def pregunta_03():
     """
